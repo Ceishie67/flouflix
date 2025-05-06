@@ -1,0 +1,7 @@
+<h1>Vidéos disponibles</h1>
+<ul>
+  <% files.forEach(file => { %>
+    <li><a href="/player/<%= file %>"><%= file %></a></li>
+  <% }) %>
+</ul>
+<a href="/">Retour</a>
