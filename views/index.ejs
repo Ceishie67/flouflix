@@ -1,6 +1,21 @@
-<h1>Uploader une vidéo</h1>
-<form action="/upload" method="POST" enctype="multipart/form-data">
-  <input type="file" name="videoFile" accept="video/*" required />
-  <button type="submit">Envoyer</button>
-</form>
-<a href="/videos">Voir les vidéos</a>
+<div class="upload-section">
+  <h2>Ajouter une nouvelle vidéo</h2>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+          <label for="videoFile">Sélectionner une vidéo :</label>
+          <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
+          <small>Formats supportés : MP4, WebM, AVI, MOV, MKV (taille max : 100 Mo)</small>
+      </div>
+      <button type="submit" class="btn">Uploader la vidéo</button>
+  </form>
+</div>
+
+<div class="info-section">
+  <h3>Comment ça marche ?</h3>
+  <ol>
+      <li>Sélectionnez un fichier vidéo depuis votre appareil</li>
+      <li>Cliquez sur "Uploader la vidéo"</li>
+      <li>Accédez à vos vidéos dans la section "Mes Vidéos"</li>
+      <li>Cliquez sur une vidéo pour la visionner</li>
+  </ol>
+</div>

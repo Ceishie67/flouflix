@@ -1,7 +1,25 @@
-<h1>Vidéos disponibles</h1>
-<ul>
-  <% files.forEach(file => { %>
-    <li><a href="/player/<%= file %>"><%= file %></a></li>
-  <% }) %>
-</ul>
-<a href="/">Retour</a>
+<div class="videos-section">
+  <h2>Mes Vidéos</h2>
+  
+  <% if (videos && videos.length > 0) { %>
+      <div class="video-grid">
+          <% videos.forEach(video => { %>
+              <div class="video-card">
+                  <div class="video-thumbnail">
+                      <video src="/uploads/<%= video %>" preload="metadata"></video>
+                      <div class="play-icon">▶</div>
+                  </div>
+                  <div class="video-info">
+                      <h3><%= video.split('-').slice(1).join('-') %></h3>
+                      <a href="/player/<%= video %>" class="btn play-btn">Regarder</a>
+                  </div>
+              </div>
+          <% }); %>
+      </div>
+  <% } else { %>
+      <div class="empty-state">
+          <p>Aucune vidéo n'a été uploadée pour le moment.</p>
+          <a href="/" class="btn">Ajouter une vidéo</a>
+      </div>
+  <% } %>
+</div>

@@ -1,6 +1,10 @@
-<h1>Lecteur Vidéo</h1>
-<video width="640" controls>
-  <source src="/uploads/<%= filename %>" type="video/mp4">
-  Votre navigateur ne supporte pas la vidéo.
-</video>
-<a href="/videos">Retour</a>
+<div class="player-section">
+    <div class="video-container">
+        <video src="/uploads/<%= videoName %>" controls autoplay class="video-player"></video>
+    </div>
+    
+    <div class="video-details">
+        <h2><%= videoName.split('-').slice(1).join('-') %></h2>
+        <a href="/videos" class="btn back-btn">Retour aux vidéos</a>
+    </div>
+</div>
