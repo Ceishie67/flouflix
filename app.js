@@ -84,6 +84,43 @@ app.get('/videos', (req, res) => {
   }
 });
 
+// Page "Mes vidéos uploadées" avec option de suppression
+app.get('/my-uploads', (req, res) => {
+  try {
+    const files = fs.readdirSync('uploads/');
+    const videos = files.filter(file => {
+      // Ne retenir que les fichiers vidéo
+      const extension = path.extname(file).toLowerCase();
+      return ['.mp4', '.webm', '.avi', '.mov', '.mkv'].includes(extension);
+    });
+    
+    res.render('my-uploads', { videos });
+  } catch (error) {
+    res.status(500).send(`Erreur lors du listage des vidéos: ${error.message}`);
+  }
+});
+
+// Route pour supprimer une vidéo
+app.post('/delete-video/:videoName', (req, res) => {
+  try {
+    const videoName = req.params.videoName;
+    const videoPath = path.join(__dirname, 'uploads', videoName);
+    
+    // Vérifier si le fichier existe
+    if (!fs.existsSync(videoPath)) {
+      return res.status(404).send('Vidéo non trouvée');
+    }
+    
+    // Supprimer le fichier
+    fs.unlinkSync(videoPath);
+    
+    // Rediriger vers la page des uploads
+    res.redirect('/my-uploads');
+  } catch (error) {
+    res.status(500).send(`Erreur lors de la suppression de la vidéo: ${error.message}`);
+  }
+});
+
 // Page de lecture d'une vidéo spécifique
 app.get('/player/:videoName', (req, res) => {
   const videoName = req.params.videoName;
@@ -99,5 +136,5 @@ app.get('/player/:videoName', (req, res) => {
 
 // Démarrage du serveur
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur http://localhost:3000`);
+  console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

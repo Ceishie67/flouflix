@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<div class="my-uploads-section">
+    <h2>Gérer mes vidéos uploadées</h2>
+    
+    <% if (videos && videos.length > 0) { %>
+        <div class="upload-list">
+            <% videos.forEach(video => { %>
+                <div class="upload-item">
+                    <div class="upload-preview">
+                        <video src="/uploads/<%= video %>" preload="metadata"></video>
+                    </div>
+                    <div class="upload-details">
+                        <h3><%= video.split('-').slice(1).join('-') %></h3>
+                        <div class="upload-actions">
+                            <a href="/player/<%= video %>" class="btn view-btn">Voir</a>
+                            <form action="/delete-video/<%= video %>" method="post" class="delete-form" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette vidéo ?');">
+                                <button type="submit" class="btn delete-btn">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="empty-state">
+            <p>Vous n'avez pas encore uploadé de vidéos.</p>
+            <a href="/" class="btn">Ajouter une vidéo</a>
+        </div>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>
