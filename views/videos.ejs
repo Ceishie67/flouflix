@@ -24,3 +24,44 @@
       </div>
   <% } %>
 </div>
+<button class="video-options-btn">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+<div class="video-options-menu">
+  <ul>
+    <li class="rename-option"><i class="fas fa-edit"></i> Renommer</li>
+    <li class="delete-option"><i class="fas fa-trash"></i> Supprimer</li>
+  </ul>
+</div>
+
+<div class="modal-backdrop" id="rename-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Renommer la vidéo</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="new-video-name" placeholder="Nouveau nom de la vidéo">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn-cancel">Annuler</button>
+      <button class="modal-btn modal-btn-ok">Renommer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="delete-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Supprimer la vidéo</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Êtes-vous sûr de vouloir supprimer cette vidéo ? Cette action est irréversible.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn-cancel">Annuler</button>
+      <button class="modal-btn modal-btn-delete">Supprimer</button>
+    </div>
+  </div>
+</div>
