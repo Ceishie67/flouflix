@@ -1,21 +1,93 @@
-<div class="upload-section">
-  <h2>Ajouter une nouvelle vidéo</h2>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-      <div class="form-group">
-          <label for="videoFile">Sélectionner une vidéo :</label>
-          <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
-          <small>Formats supportés : MP4, WebM, AVI, MOV, MKV (taille max : 100 Mo)</small>
-      </div>
-      <button type="submit" class="btn">Uploader la vidéo</button>
-  </form>
+<%- include('partials/header') %>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Bienvenue sur Flouflix</h1>
+        <p>Votre plateforme personnelle pour partager et visionner vos vidéos préférées</p>
+        <div class="hero-buttons">
+            <a href="#upload-section" class="btn btn-large">Uploader une vidéo</a>
+            <a href="/videos" class="btn btn-large btn-secondary">Voir toutes les vidéos</a>
+        </div>
+    </div>
 </div>
 
-<div class="info-section">
-  <h3>Comment ça marche ?</h3>
-  <ol>
-      <li>Sélectionnez un fichier vidéo depuis votre appareil</li>
-      <li>Cliquez sur "Uploader la vidéo"</li>
-      <li>Accédez à vos vidéos dans la section "Mes Vidéos"</li>
-      <li>Cliquez sur une vidéo pour la visionner</li>
-  </ol>
+<div class="features-section">
+    <div class="feature">
+        <div class="feature-icon">📤</div>
+        <h3>Upload Facile</h3>
+        <p>Téléchargez vos vidéos en quelques clics</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">📺</div>
+        <h3>Lecture HD</h3>
+        <p>Profitez de vos contenus en haute qualité</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">🗂️</div>
+        <h3>Gestion Simple</h3>
+        <p>Organisez et supprimez vos vidéos facilement</p>
+    </div>
 </div>
+
+<div id="upload-section" class="upload-section">
+    <h2>Ajouter une nouvelle vidéo</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="videoFile">Sélectionner une vidéo :</label>
+            <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
+            <small>Formats supportés : MP4, WebM, AVI, MOV, MKV (taille max : 100 Mo)</small>
+        </div>
+        <button type="submit" class="btn">Uploader la vidéo</button>
+    </form>
+</div>
+
+<div class="recent-videos-section">
+    <h2>Vidéos récemment ajoutées</h2>
+    <div id="recent-videos-container">
+        <div class="loading">Chargement des vidéos récentes...</div>
+    </div>
+</div>
+
+<script>
+    // Script pour charger les vidéos récentes
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            const response = await fetch('/api/recent-videos');
+            const videos = await response.json();
+            
+            const container = document.getElementById('recent-videos-container');
+            
+            if (videos.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Aucune vidéo n\'a été uploadée pour le moment.</p><a href="#upload-section" class="btn">Ajouter une vidéo</a></div>';
+                return;
+            }
+            
+            let html = '<div class="recent-grid">';
+            
+            videos.forEach(video => {
+                html += `
+                    <div class="recent-card">
+                        <div class="recent-thumbnail">
+                            <video src="/uploads/${video}" preload="metadata"></video>
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="recent-info">
+                            <h3>${video.split('-').slice(1).join('-')}</h3>
+                            <a href="/player/${video}" class="btn watch-btn">Regarder</a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+        } catch (error) {
+            console.error('Erreur lors du chargement des vidéos récentes:', error);
+            document.getElementById('recent-videos-container').innerHTML = 
+                '<div class="error-state">Impossible de charger les vidéos récentes. Veuillez réessayer plus tard.</div>';
+        }
+    });
+</script>
+
+<%- include('partials/footer') %>

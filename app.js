@@ -14,9 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
 
-// Création du dossier uploads s'il n'existe pas
+// Création des dossiers s'ils n'existent pas
 if (!fs.existsSync('uploads')) {
   fs.mkdirSync('uploads');
+}
+if (!fs.existsSync('public/js')) {
+  fs.mkdirSync('public/js', { recursive: true });
+}
+if (!fs.existsSync('public/css')) {
+  fs.mkdirSync('public/css', { recursive: true });
 }
 
 // Configuration de multer pour l'upload de fichiers
@@ -118,6 +124,32 @@ app.post('/delete-video/:videoName', (req, res) => {
     res.redirect('/my-uploads');
   } catch (error) {
     res.status(500).send(`Erreur lors de la suppression de la vidéo: ${error.message}`);
+  }
+});
+
+// Route API pour récupérer les vidéos récentes
+app.get('/api/recent-videos', (req, res) => {
+  try {
+    const files = fs.readdirSync('uploads/');
+    const videos = files.filter(file => {
+      // Ne retenir que les fichiers vidéo
+      const extension = path.extname(file).toLowerCase();
+      return ['.mp4', '.webm', '.avi', '.mov', '.mkv'].includes(extension);
+    });
+    
+    // Trier par date de modification (plus récente d'abord)
+    const sortedVideos = videos.sort((a, b) => {
+      const statA = fs.statSync(path.join('uploads', a));
+      const statB = fs.statSync(path.join('uploads', b));
+      return statB.mtime.getTime() - statA.mtime.getTime();
+    });
+    
+    // Limiter à 6 vidéos
+    const recentVideos = sortedVideos.slice(0, 6);
+    
+    res.json(recentVideos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
