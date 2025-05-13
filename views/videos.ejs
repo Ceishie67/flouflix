@@ -1,67 +1,88 @@
-<div class="videos-section">
-  <link rel="stylesheet" href="/css/style.css">
-  <h2>Mes Vidéos</h2>
-  
-  <% if (videos && videos.length > 0) { %>
-      <div class="video-grid">
-          <% videos.forEach(video => { %>
-              <div class="video-card">
-                  <div class="video-thumbnail">
-                      <video src="/uploads/<%= video %>" preload="metadata"></video>
-                      <div class="play-icon">▶</div>
-                  </div>
-                  <div class="video-info">
-                      <h3><%= video.split('-').slice(1).join('-') %></h3>
-                      <a href="/player/<%= video %>" class="btn play-btn">Regarder</a>
-                  </div>
-              </div>
-          <% }); %>
-      </div>
-  <% } else { %>
-      <div class="empty-state">
-          <p>Aucune vidéo n'a été uploadée pour le moment.</p>
-          <a href="/" class="btn">Ajouter une vidéo</a>
-      </div>
-  <% } %>
-</div>
-<button class="video-options-btn">
-  <i class="fas fa-ellipsis-v"></i>
-</button>
-<div class="video-options-menu">
-  <ul>
-    <li class="rename-option"><i class="fas fa-edit"></i> Renommer</li>
-    <li class="delete-option"><i class="fas fa-trash"></i> Supprimer</li>
-  </ul>
-</div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes vidéos - Service de partage</title>
+<body>    
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">MonService</a></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="mes-videos.html">Mes vidéos</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="modal-backdrop" id="rename-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Renommer la vidéo</h3>
-      <button class="modal-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <input type="text" id="new-video-name" placeholder="Nouveau nom de la vidéo">
-    </div>
-    <div class="modal-footer">
-      <button class="modal-btn modal-btn-cancel">Annuler</button>
-      <button class="modal-btn modal-btn-ok">Renommer</button>
-    </div>
-  </div>
-</div>
+    <main>
+        <div class="container">
+            <section class="videos-section">
+                <h2>
+                    Mes vidéos
+                    <button id="btn-delete-multiple" class="btn btn-delete-multiple">Supprimer des vidéos</button>
+                </h2>
 
-<div class="modal-backdrop" id="delete-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Supprimer la vidéo</h3>
-      <button class="modal-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <p>Êtes-vous sûr de vouloir supprimer cette vidéo ? Cette action est irréversible.</p>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-btn modal-btn-cancel">Annuler</button>
-      <button class="modal-btn modal-btn-delete">Supprimer</button>
-    </div>
-  </div>
-</div>
+                <div class="upload-list">
+                    <!-- Exemple de vidéos -->
+                    <div class="upload-item">
+                        <input type="checkbox" class="video-checkbox" style="display: none;">
+                        <div class="upload-preview">
+                            <!-- Placeholder pour la vidéo -->
+                        </div>
+                        <div class="upload-details">
+                            <h3>Ma vidéo 1</h3>
+                            <div class="upload-actions">
+                                <a href="#" class="btn view-btn">Voir</a>
+                                <button class="btn delete-btn">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <input type="checkbox" class="video-checkbox" style="display: none;">
+                        <div class="upload-preview">
+                            <!-- Placeholder pour la vidéo -->
+                        </div>
+                        <div class="upload-details">
+                            <h3>Ma vidéo 2</h3>
+                            <div class="upload-actions">
+                                <a href="#" class="btn view-btn">Voir</a>
+                                <button class="btn delete-btn">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <input type="checkbox" class="video-checkbox" style="display: none;">
+                        <div class="upload-preview">
+                            <!-- Placeholder pour la vidéo -->
+                        </div>
+                        <div class="upload-details">
+                            <h3>Ma vidéo 3</h3>
+                            <div class="upload-actions">
+                                <a href="#" class="btn view-btn">Voir</a>
+                                <button class="btn delete-btn">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="selection-controls">
+            <div class="selection-count">0 vidéo(s) sélectionnée(s)</div>
+            <div class="selection-buttons">
+                <button class="btn btn-cancel">Annuler</button>
+                <button class="btn btn-confirm">Valider</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MonService. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

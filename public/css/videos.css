@@ -917,214 +917,105 @@ footer {
     flex: 1;
     text-align: center;
   }
-  /* Styles pour les options de vidéo (supprimer/renommer) */
+.bulk-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
 
-/* Bouton d'options sur les cartes vidéo */
-.video-card {
+.btn-delete-multiple {
+  background-color: #dc3545;
+  margin-left: auto;
+}
+
+.btn-delete-multiple:hover {
+  background-color: #c82333;
+}
+
+.selection-mode .upload-item {
   position: relative;
+  padding-left: 50px;
 }
 
-.video-options-btn {
+.video-checkbox {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: var(--light);
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  accent-color: var(--primary);
 }
 
-.video-card:hover .video-options-btn {
+.selection-mode .upload-preview {
+  opacity: 0.7;
+}
+
+.selection-mode .upload-item.selected .upload-preview {
   opacity: 1;
+  border: 2px solid var(--primary);
 }
 
-.video-options-btn i {
-  font-size: 16px;
-}
-
-/* Menu déroulant pour les options */
-.video-options-menu {
-  position: absolute;
-  top: 45px;
-  right: 10px;
-  background-color: rgba(24, 24, 24, 0.95);
-  border: 1px solid #333;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  width: 160px;
-  z-index: 20;
-  display: none;
-  overflow: hidden;
-}
-
-.video-options-menu.active {
-  display: block;
-}
-
-.video-options-menu ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.video-options-menu ul li {
-  padding: 12px 15px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-
-.video-options-menu ul li:hover {
-  background-color: rgba(66, 66, 66, 0.8);
-}
-
-.video-options-menu ul li i {
-  margin-right: 10px;
-  font-size: 14px;
-  color: #aaa;
-}
-
-.video-options-menu ul li.rename-option:hover i {
-  color: var(--light);
-}
-
-.video-options-menu ul li.delete-option {
-  color: #ff6b6b;
-}
-
-.video-options-menu ul li.delete-option i {
-  color: #ff6b6b;
-}
-
-/* Modales pour renommer/supprimer */
-.modal-backdrop {
+.selection-controls {
+  background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  display: none;
-}
-
-.modal-backdrop.active {
-  display: flex;
-}
-
-.modal-content {
-  background-color: var(--gray);
-  border-radius: var(--border-radius);
-  width: 90%;
-  max-width: 450px;
-  padding: 25px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  border: 1px solid #333;
-}
-
-.modal-header {
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #333;
+  z-index: 100;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
 }
 
-.modal-header h3 {
-  margin: 0;
-  color: var(--light);
-  font-size: 20px;
+.selection-mode .selection-controls {
+  transform: translateY(0);
 }
 
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  color: #aaa;
-}
-
-.modal-close:hover {
-  color: var(--light);
-}
-
-.modal-body {
-  margin-bottom: 25px;
-}
-
-.modal-body input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  background-color: #333;
-  border: 1px solid #444;
-  border-radius: var(--border-radius);
-  color: var(--light);
+.selection-count {
   font-size: 16px;
+  font-weight: bold;
 }
 
-.modal-body input[type="text"]:focus {
-  outline: none;
-  border-color: #555;
-}
-
-.modal-body p {
-  color: #aaa;
-  font-size: 16px;
-}
-
-.modal-footer {
+.selection-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+  gap: 15px;
 }
 
-.modal-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
+.btn-cancel {
+  background-color: var(--gray);
+  border: 1px solid var(--light);
 }
 
-.modal-btn-cancel {
-  background-color: #333;
-  color: var(--light);
-}
-
-.modal-btn-cancel:hover {
+.btn-cancel:hover {
   background-color: #444;
 }
 
-.modal-btn-ok {
+.btn-confirm {
   background-color: var(--primary);
-  color: white;
 }
 
-.modal-btn-ok:hover {
+.btn-confirm:hover {
   background-color: var(--secondary);
 }
 
-.modal-btn-delete {
-  background-color: #e50914;
-  color: white;
-}
 
-.modal-btn-delete:hover {
-  background-color: #b81d24;
-}
+@media (max-width: 768px) {
+  .selection-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .selection-buttons {
+    width: 100%;
+  }
+  
+  .btn-cancel, .btn-confirm {
+    flex: 1;
+    }
+  }
 }
